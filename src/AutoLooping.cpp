@@ -335,7 +335,7 @@ bool AutoLooping::AutoFindLoops(
             // also check if using brute force that it's not too close to any already added
             if (m_useBruteForce) {
               for (unsigned k = 0; k < loops.size(); k++) {
-                if (std::abs((int) foundLoops[i].first.first - (int) loops[k].first.first) > samplerate * m_distanceBetweenLoops) {
+                if (fabs((int) foundLoops[i].first.first - (int) loops[k].first.first) > samplerate * m_distanceBetweenLoops) {
                   tooClose = false;
                 } else {
                   tooClose = true;

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+cd lib-src/libsndfile
+./configure --disable-external-libs
+make
+cd ..
+ln -sf libsndfile/src/.libs/libsndfile.a .
+
+cd rtaudio
+./configure --with-core
+make
+cd ..
+ln -sf rtaudio/librtaudio.a .
+
+cd ../src
+
+g++ -D__LINUX_ALSA__ -o LoopAuditioneer LoopAuditioneer.cpp MyFrame.cpp MyPanel.cpp CueMarkers.cpp LoopMarkers.cpp FileHandling.cpp MySound.cpp WaveformDrawer.cpp LoopParametersDialog.cpp BatchProcessDialog.cpp AutoLoopDialog.cpp AutoLooping.cpp PitchDialog.cpp CrossfadeDialog.cpp LoopOverlay.cpp FFT.cpp StopHarmonicDialog.cpp CutNFadeDialog.cpp MyListCtrl.cpp -I../lib-src/libsndfile/src -I../lib-src/rtaudio ../lib-src/libsndfile.a ../lib-src/librtaudio.a -framework CoreAudio -lpthread -lm `wx-config --cxxflags --unicode=yes --libs`
+cd ..
